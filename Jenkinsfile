@@ -6,11 +6,12 @@ pipeline {
             agent {
                 docker {
                     image 'hadolint/hadolint:latest-alpine'
+                    reuseNode true
                 }
             }
             steps {
                 hadolint Dockerfile
             }
+        }
     }
-}
 }
