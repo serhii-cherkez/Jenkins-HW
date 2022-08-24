@@ -1,5 +1,5 @@
 pipeline {
-    agent docker-jnlp-agent
+    agent {docker-jnlp-agent}
     stages {
         stage('test') {
             agent {
