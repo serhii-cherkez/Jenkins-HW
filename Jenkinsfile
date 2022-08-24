@@ -1,8 +1,7 @@
 pipeline {
-    agent docker
-    
+    agent none
     stages {
-        stage 'test' {
+        stage('test') {
             agent {
                 label 'docker-jnlp-agent' {
                     image 'hadolint/hadolint:latest-alpine'
