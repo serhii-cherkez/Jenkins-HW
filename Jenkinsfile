@@ -1,10 +1,10 @@
 pipeline {
-    agent any
-    node("docker-jnlp-agent") {
+    agent none
+    
     stages {
         stage('test') {
             agent {
-                docker {
+                label "docker-jnlp-agent" {
                     image 'hadolint/hadolint:latest-alpine'
                     reuseNode true
                 }
@@ -14,5 +14,4 @@ pipeline {
             }
         }
     }
-}
 }
