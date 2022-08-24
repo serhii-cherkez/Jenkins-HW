@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    node("docker-jnlp-agent") {
     stages {
         stage('test') {
             agent {
@@ -13,4 +14,5 @@ pipeline {
             }
         }
     }
+}
 }
