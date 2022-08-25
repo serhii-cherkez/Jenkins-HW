@@ -4,7 +4,7 @@ pipeline {
         stage('test') {
             agent {
                 docker {
-                    { image 'hadolint/hadolint:latest-alpine' }
+                    image 'hadolint/hadolint:latest-alpine'
                 }
             }
             steps {
