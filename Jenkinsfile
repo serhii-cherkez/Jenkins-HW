@@ -1,14 +1,12 @@
 pipeline {
-    stages {
-        stage('test') {
-            agent {
-                docker {
-                    image 'hadolint/hadolint:latest-alpine'
-                }
-            }
-            steps {
-                hadolint Dockerfile
-            }
-        }
+  agent {
+    docker { image 'hadolint/hadolint:latest-alpine' }
+  }
+  stages {
+    stage('Test') {
+      steps {
+        sh 'hadolint Dockerfile'
+      }
     }
+  }
 }
