@@ -34,7 +34,8 @@ pipeline {
         stage('docker_push') {
             agent {
                 docker { 
-                    image 'docker:latest' }
+                    image 'docker:latest'
+                    args  '-u 0' }
             }
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
