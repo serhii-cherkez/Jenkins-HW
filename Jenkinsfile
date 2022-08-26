@@ -24,7 +24,7 @@ pipeline {
             }
             steps {
                 sh 'docker rm --force $CONTAINER_NAME'
-                sh 'docker rmi --force $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME'
+                sh 'docker rmi --force $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:main'
                 sh 'apk --no-cache add curl'
                 sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:main .'
                 sh 'docker run -d -p 8787:8080 --name=$CONTAINER_NAME $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:main'
