@@ -1,6 +1,7 @@
 pipeline {
     agent none
     environment {
+        BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
         DOCKERHUB_CREDENTIALS=credentials('dockerhub-cherkez')
         IMAGE_NAME = 'homework-image-jenkins'
         CONTAINER_NAME = 'homework-container-jenkins'
