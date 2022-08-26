@@ -22,7 +22,8 @@ pipeline {
                     args  '-u 0' }
             }
             steps {
-                
+                sh 'docker rm --force $CONTAINER_NAME'
+                sh 'docker rmi --force $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$GIT_LOCAL_BRANCH'
                 sh 'apk --no-cache add curl'
                 sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$GIT_LOCAL_BRANCH .'
                 sh 'docker run -d -p 8787:8080 --name=$CONTAINER_NAME $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$GIT_LOCAL_BRANCH'
