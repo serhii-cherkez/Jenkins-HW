@@ -5,7 +5,6 @@ pipeline {
         IMAGE_NAME = 'homework-image-jenkins'
         CONTAINER_NAME = 'homework-container-jenkins'
     }
-   
     stages {
         stage('docker_lint_test') {
             agent {
