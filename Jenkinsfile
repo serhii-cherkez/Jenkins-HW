@@ -5,17 +5,21 @@ pipeline {
         IMAGE_NAME = 'homework-image-jenkins'
         CONTAINER_NAME = 'homework-container-jenkins'
     }
+   
     stages {
         stage('docker_lint_test') {
             agent {
-                docker { image 'hadolint/hadolint:latest-alpine' }
+                docker { 
+                    image 'hadolint/hadolint:latest-alpine' }
             }
             steps {
                 sh 'hadolint Dockerfile'
             }
+        }
         stage('docker_build') {
             agent {
-                docker { image 'docker:latest' }
+                docker { 
+                    image 'docker:latest' }
             }
             steps {
                 sh 'docker rm --force $CONTAINER_NAME'
@@ -28,5 +32,4 @@ pipeline {
             }
         }
     }
-}
 }
