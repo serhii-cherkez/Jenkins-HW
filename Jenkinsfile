@@ -22,7 +22,6 @@ pipeline {
                     image 'docker:latest' }
             }
             steps {
-                sh 'apk --no-cache add curl'
                 sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME .'
                 sh 'docker run -d -p 8888:8080 --name=$CONTAINER_NAME $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME'
                 sh 'sleep 5'
