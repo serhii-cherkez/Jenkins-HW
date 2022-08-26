@@ -31,5 +31,16 @@ pipeline {
                 sh 'curl --insecure http://gitlab-cherkez.pp.ua:8787 | grep "Docker HomeWork 1"'
             }
         }
+        stage('docker_push') {
+            agent {
+                docker { 
+                    image 'docker:latest' }
+            }
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'docker push $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$GIT_LOCAL_BRANCH'
+                
+            }
+        }
     }
 }
