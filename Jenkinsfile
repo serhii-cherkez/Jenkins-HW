@@ -32,6 +32,9 @@ pipeline {
             }
         }
         stage('docker_push') {
+            when {
+                branch 'main'
+            }
             agent {
                 docker { 
                     image 'docker:latest'
