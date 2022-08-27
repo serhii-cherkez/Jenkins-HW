@@ -23,10 +23,10 @@ pipeline {
             }
             steps {
                 sh 'docker rm --force $CONTAINER_NAME'
-                sh 'docker rmi --force $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$GIT_LOCAL_BRANCH'
+                sh 'docker rmi --force $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME'
                 sh 'apk --no-cache add curl'
-                sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$GIT_LOCAL_BRANCH .'
-                sh 'docker run -d -p 8686:8080 --name=$CONTAINER_NAME $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$GIT_LOCAL_BRANCH'
+                sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME .'
+                sh 'docker run -d -p 8686:8080 --name=$CONTAINER_NAME $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME'
                 sh 'sleep 5'
                 sh 'curl --insecure http://gitlab-cherkez.pp.ua:8686 | grep "Docker HomeWork 1"'
             }
@@ -42,7 +42,7 @@ pipeline {
             }
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$GIT_LOCAL_BRANCH'
+                sh 'docker push $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME'
                 
             }
         }
