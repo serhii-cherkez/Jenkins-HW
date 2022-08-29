@@ -32,7 +32,9 @@ pipeline {
             }
         }
         stage('docker_push') {
-            
+            when {
+                changeRequest target: 'master' 
+            }
             agent {
                 docker { 
                     image 'docker:latest'
