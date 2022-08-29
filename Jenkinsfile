@@ -33,7 +33,7 @@ pipeline {
         }
         stage('docker_push') {
             when {
-                changeRequest target: 'main'
+                changeRequest branch: 'main'
             }
             agent {
                 docker { 
