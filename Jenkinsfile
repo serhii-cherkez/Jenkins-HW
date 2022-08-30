@@ -33,7 +33,7 @@ pipeline {
         }
         stage('docker_push') {
             when {
-                { allOf
+                allOf {
                     changeRequest() 
                     branch '$BRANCH_MAIN'
                 }
