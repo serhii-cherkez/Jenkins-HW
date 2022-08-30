@@ -26,9 +26,9 @@ pipeline {
                 sh 'docker rmi --force $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME'
                 sh 'apk --no-cache add curl'
                 sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME .'
-                sh 'docker run -d -p 8787:8080 --name=$CONTAINER_NAME $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME'
+                sh 'docker run -d -p 8585:8080 --name=$CONTAINER_NAME $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME'
                 sh 'sleep 5'
-                sh 'curl --insecure http://gitlab-cherkez.pp.ua:8787 | grep "Docker HomeWork 1"'
+                sh 'curl --insecure http://gitlab-cherkez.pp.ua:8585 | grep "Docker HomeWork 1"'
             }
         }
         stage('docker_push') {
