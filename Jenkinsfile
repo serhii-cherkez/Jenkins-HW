@@ -1,5 +1,5 @@
 pipeline {
-    agent docker
+    agent none
     environment {
         DOCKERHUB_CREDENTIALS=credentials('dockerhub-cherkez')
         IMAGE_NAME = 'homework-image-jenkins'
@@ -7,15 +7,19 @@ pipeline {
     }
     stages {
         stage('docker_lint_test') {
-            image 'hadolint/hadolint:latest-alpine'
-                steps {
-                    sh 'hadolint Dockerfile'
+            agent {
+                docker { image 'hadolint/hadolint:latest-alpine' }
+            }    
+            steps {
+                sh 'hadolint Dockerfile'
             }
         }
         stage('docker_build') {
-            image 'docker:latest'
-            args  '-u 0' 
-                steps {
+            agent {
+                docker { image 'docker:latest'
+                         args  '-u 0' }
+            }
+            steps {
                     sh 'docker rm --force $CONTAINER_NAME'
                     sh 'docker rmi --force $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME'
                     sh 'apk --no-cache add curl'
@@ -29,9 +33,11 @@ pipeline {
             when {
                 changeRequest target: '$BRANCH_MAIN'
             }
-            image 'docker:latest'
-            args  '-u 0' 
-                steps {
+            agent {
+                docker { image 'docker:latest'
+                         args  '-u 0' }
+            }
+            steps {
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                     sh 'docker push $DOCKERHUB_CREDENTIALS_USR/$IMAGE_NAME:$BRANCH_NAME'
                 
