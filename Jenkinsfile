@@ -31,7 +31,7 @@ pipeline {
         }
         stage('docker_push') {
             when {
-                branch: '$BRANCH_MAIN'
+                branch '$BRANCH_MAIN'
             }
             agent {
                 docker { image 'docker:latest'
